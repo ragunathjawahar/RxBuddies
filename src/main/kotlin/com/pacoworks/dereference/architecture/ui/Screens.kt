@@ -14,12 +14,21 @@
  * limitations under the License.
  */
 
-package com.pacoworks.dereference.core.reactive
+package com.pacoworks.dereference.architecture.ui
 
-enum class ActivityLifecycle {
-    Enter, Create, Start, Resume, Pause, Stop, Destroy, Exit
+import com.pacoworks.rxsealedunions.Union0
+import com.pacoworks.rxsealedunions.generic.GenericUnions
+
+typealias Screen = Union0<Home>
+
+enum class Direction {
+    BACK, FORWARD
 }
 
-enum class ConductorLifecycle {
-    Enter, Create, Attach, Detach, Destroy, Exit
-}
+val SCREEN_FACTORY: Union0.Factory<Home> = GenericUnions.nulletFactory<Home>()
+
+sealed class Screens(open val id: String = "")
+
+data class Home(override val id: String = ""): Screens(id)
+
+fun createHome(): Union0<Home> = SCREEN_FACTORY.first(Home())

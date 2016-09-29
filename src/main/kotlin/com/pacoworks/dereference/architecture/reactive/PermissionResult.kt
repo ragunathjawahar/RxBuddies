@@ -14,20 +14,9 @@
  * limitations under the License.
  */
 
-package com.pacoworks.dereference.core.reactive.buddies
+package com.pacoworks.dereference.architecture.reactive
 
-import com.pacoworks.dereference.core.functional.None
-import com.pacoworks.dereference.core.reactive.ActivityLifecycle
-import com.pacoworks.dereference.core.reactive.ActivityResult
-import com.pacoworks.dereference.core.reactive.PermissionResult
-import rx.Observable
-
-interface ActivityReactiveBuddy {
-    fun lifecycle(): Observable<ActivityLifecycle>
-
-    fun activityResult(): Observable<ActivityResult>
-
-    fun permissionResult(): Observable<PermissionResult>
-
-    fun back(): Observable<None>
+sealed class PermissionResult(open val requestCode: Int, open val permission: String) {
+    data class Success(override val requestCode: Int, override val permission: String) : PermissionResult(requestCode, permission)
+    data class Failure(override val requestCode: Int, override val permission: String) : PermissionResult(requestCode, permission)
 }

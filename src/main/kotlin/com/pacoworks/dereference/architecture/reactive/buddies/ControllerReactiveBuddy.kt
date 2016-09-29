@@ -14,21 +14,12 @@
  * limitations under the License.
  */
 
-package com.pacoworks.dereference.core.ui
+package com.pacoworks.dereference.architecture.reactive.buddies
 
-import com.pacoworks.rxsealedunions.Union0
-import com.pacoworks.rxsealedunions.generic.GenericUnions
+import com.pacoworks.dereference.architecture.reactive.ConductorLifecycle
+import rx.Observable
 
-typealias Screen = Union0<Home>
-
-enum class Direction {
-    BACK, FORWARD
+interface ControllerReactiveBuddy {
+    fun lifecycle(): Observable<ConductorLifecycle>
 }
 
-val SCREEN_FACTORY: Union0.Factory<Home> = GenericUnions.nulletFactory<Home>()
-
-sealed class Screens(open val id: String = "")
-
-data class Home(override val id: String = ""): Screens(id)
-
-fun createHome(): Union0<Home> = SCREEN_FACTORY.first(Home())

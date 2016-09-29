@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package com.pacoworks.dereference.core.ui
+package com.pacoworks.dereference.architecture.ui
 
-import com.pacoworks.rxsealedunions.Union1
+import com.jakewharton.rxrelay.BehaviorRelay
+import rx.functions.Action2
 
-interface Navigator {
-    fun goTo(screen: Screen)
-
-    fun goBack(): Union1<Screen>
+interface BoundView {
+    fun <T> createBinder(): Action2<BehaviorRelay<T>, (T) -> Unit>
 }

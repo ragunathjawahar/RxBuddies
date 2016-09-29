@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.pacoworks.dereference.core.ui
+package com.pacoworks.dereference.architecture.ui
 
 import com.jakewharton.rxrelay.BehaviorRelay
-import com.pacoworks.dereference.core.reactive.ConductorLifecycle
+import com.pacoworks.dereference.architecture.reactive.ConductorLifecycle
 import rx.Observable
 import rx.Subscription
 
