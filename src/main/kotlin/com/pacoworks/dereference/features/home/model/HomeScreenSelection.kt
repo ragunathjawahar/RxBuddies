@@ -16,10 +16,8 @@
 
 package com.pacoworks.dereference.features.home.model
 
-sealed class Transaction {
-    object Idle : Transaction()
-    data class Loading(val user: UserInput) : Transaction()
-    data class Success(val charInfo: Toon) : Transaction()
-    data class Failure(val reason: String) : Transaction()
-    data class WaitingForRetry(val seconds: Int) : Transaction()
+sealed class HomeScreenSelection {
+    object List: HomeScreenSelection()
+    object MediaPlayer: HomeScreenSelection()
+    object Rotation: HomeScreenSelection()
 }
