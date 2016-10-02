@@ -17,7 +17,7 @@
 package com.pacoworks.dereference.features.home.model
 
 sealed class HomeScreenSelection {
-    object List: HomeScreenSelection()
+    object RecyclerView : HomeScreenSelection()
     object MediaPlayer: HomeScreenSelection()
     object Rotation: HomeScreenSelection()
 }
