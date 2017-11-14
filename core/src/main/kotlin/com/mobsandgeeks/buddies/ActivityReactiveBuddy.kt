@@ -13,11 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.pacoworks.dereference.architecture.reactive.buddies
+package com.mobsandgeeks.buddies
 
-import com.pacoworks.dereference.architecture.reactive.ActivityLifecycle
-import com.pacoworks.dereference.architecture.reactive.ActivityResult
-import com.pacoworks.dereference.architecture.reactive.PermissionResult
 import io.reactivex.Observable
 
 /**

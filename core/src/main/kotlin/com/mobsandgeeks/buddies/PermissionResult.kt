@@ -13,11 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.pacoworks.dereference.architecture.reactive
+package com.mobsandgeeks.buddies
 
 /**
- * Enum class with all possible Activity lifecycle states
+ * Algebra representing all possible results from a Permission request
  */
-enum class ActivityLifecycle {
-  ENTER, CREATE, START, RESUME, PAUSE, STOP, DESTROY, EXIT
+sealed class PermissionResult(open val requestCode: Int, open val permission: String) {
+  /**
+   * Data class representing a successful permission request
+   */
+  data class Success(override val requestCode: Int, override val permission: String) : PermissionResult(requestCode, permission)
+
+  /**
+   * Data class representing a failed permission request
+   */
+  data class Failure(override val requestCode: Int, override val permission: String) : PermissionResult(requestCode, permission)
 }

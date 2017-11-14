@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.pacoworks.dereference.architecture.reactive
+package com.mobsandgeeks.buddies
 
 /**
  * Algebra representing all possible results from an Activity request

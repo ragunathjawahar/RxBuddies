@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.pacoworks.dereference.architecture.reactive.buddies
+package com.mobsandgeeks.buddies
 
 import com.jakewharton.rxrelay2.BehaviorRelay
-import com.pacoworks.dereference.architecture.reactive.ActivityLifecycle
-import com.pacoworks.dereference.architecture.reactive.ActivityResult
-import com.pacoworks.dereference.architecture.reactive.PermissionResult
+import com.mobsandgeeks.buddies.ActivityResult
+import com.mobsandgeeks.buddies.PermissionResult
 import io.reactivex.BackpressureStrategy
 
 /**
