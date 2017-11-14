@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 apply plugin: 'com.android.application'
 
 android {
@@ -40,8 +39,6 @@ android {
 }
 
 dependencies {
-    // compile fileTree(dir: 'libs', include: ['*.jar'])
-
     // Support
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:recyclerview-v7:26.1.0'
@@ -56,7 +53,6 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.4.0'
 
     // Business logic
-    compile project(':libcore')
     compile project(':liblogic')
     compile project(':libservices')
     compile 'io.reactivex:rxjava:1.2.0'

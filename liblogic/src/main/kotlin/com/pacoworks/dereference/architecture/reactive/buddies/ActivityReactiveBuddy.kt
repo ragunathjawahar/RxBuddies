@@ -44,5 +44,5 @@ interface ActivityReactiveBuddy {
     /**
      * Non-terminating [Observable] representing user back presses
      */
-    fun back(): Observable<None>
+    fun back(): Observable<Unit>
 }
