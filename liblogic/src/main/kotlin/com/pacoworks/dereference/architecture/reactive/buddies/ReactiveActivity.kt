@@ -20,7 +20,6 @@ import com.jakewharton.rxrelay.BehaviorRelay
 import com.pacoworks.dereference.architecture.reactive.ActivityLifecycle
 import com.pacoworks.dereference.architecture.reactive.ActivityResult
 import com.pacoworks.dereference.architecture.reactive.PermissionResult
-import com.pacoworks.dereference.core.functional.None
 
 /**
  * Delegate class for Android lifecycle responsibilities in an Activity to transform them on reactive streams.
@@ -35,7 +34,7 @@ class ReactiveActivity {
 
     val permissionResultRelay: BehaviorRelay<PermissionResult> = BehaviorRelay.create<PermissionResult>()
 
-    val onBackRelay: BehaviorRelay<None> = BehaviorRelay.create<None>()
+    val onBackRelay: BehaviorRelay<Unit> = BehaviorRelay.create<Unit>()
 
     private fun call(lifecycle: ActivityLifecycle) = lifecycleRelay.call(lifecycle)
 
@@ -92,7 +91,7 @@ class ReactiveActivity {
     /**
      * To be called when the user presses the back key
      */
-    fun onBackPressed() = onBackRelay.call(None)
+    fun onBackPressed() = onBackRelay.call(Unit)
 
     /**
      * Creates a proxy object [ActivityReactiveBuddy] to access framework events, like lifecycle.

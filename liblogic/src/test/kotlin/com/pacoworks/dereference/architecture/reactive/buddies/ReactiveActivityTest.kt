@@ -19,7 +19,6 @@ package com.pacoworks.dereference.architecture.reactive.buddies
 import com.pacoworks.dereference.architecture.reactive.ActivityLifecycle
 import com.pacoworks.dereference.architecture.reactive.ActivityResult
 import com.pacoworks.dereference.architecture.reactive.PermissionResult
-import com.pacoworks.dereference.core.functional.None
 import org.junit.Test
 import rx.observers.TestSubscriber
 
@@ -88,13 +87,13 @@ class ReactiveActivityTest {
     fun activityBuddy_backPressed_SeeAllEvents() {
         val reactiveActivity = ReactiveActivity()
         val reactiveBuddy = reactiveActivity.createBuddy()
-        val testSubscriber = TestSubscriber.create<None>()
+        val testSubscriber = TestSubscriber.create<Unit>()
         reactiveBuddy.back().subscribe(testSubscriber)
         /* Press back */
         reactiveActivity.onBackPressed()
         /* Assert back seen */
         testSubscriber.assertValueCount(1)
-        testSubscriber.assertValue(None)
+        testSubscriber.assertValue(Unit)
         testSubscriber.assertNoTerminalEvent()
     }
 
