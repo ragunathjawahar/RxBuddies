@@ -41,7 +41,7 @@ class ReactiveActivity {
    * To be called on the lifecycle method of the same name
    */
   fun onCreate() =
-      call(ActivityLifecycle.Create)
+      call(ActivityLifecycle.CREATE)
 
   /**
    * To be called on the lifecycle method of the same name
