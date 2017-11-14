@@ -49,8 +49,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // RxJava
-    compile 'com.jakewharton.rxrelay:rxrelay:1.1.0'
-    compile 'com.github.pakoito:FunctionalRx:1.0.0'
+    compile 'com.jakewharton.rxrelay:rxrelay:1.2.0'
 
     // Test
     testCompile 'junit:junit:4.12'
