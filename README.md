@@ -1,26 +1,22 @@
-## LibLogic
+## RxBuddies
 
-LibLogic contains all the logic, models, and services corresponding to the business domain layer of the app.
+A library that has utility classes that emit Activity events (lifecycle, Activity and permission results) for your reactive Android app.
 
-### Packages
+The library is extracted from [Pakoito's](https://github.com/pakoito) [Functional Android Reference](https://github.com/pakoito/FunctionalAndroidReference) project. It is his work. I have extracted the useful parts for a unidirectional data-flow architecture that I am adopting.
 
-#### Architecture.reactive
+This micro-library is a work in progress.
 
-It contains all the interfaces and classes used to layout the app's skeleton in a reactive way
+License
+---------------------
 
-* ReactiveActivity is a delegate class for activities to call into with lifecycle and callback methods, i.e. permission results
-* ReactiveController is a delegate class for Conductor's controllers to delegate their lifecycle into
-* ActivityReactiveBuddy is a proxy object created by ReactiveActivity to access its exposed Observables, like lifecycle or activity results
-* ControllerReactiveBuddy is a proxy object created by ReactiveController to access its exposed Observables, like lifecycle
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
-#### Architecture.ui
+       http://www.apache.org/licenses/LICENSE-2.0
 
-Contains the constructs used to do one-way binding between state and view
-
-* StateHolder is a typealias representing a wrapped state into a SerializedRelay backed by a BehaviourRelay
-* BoundView is an interface to be implemented by a view that allows binding by using `binding()`
-* `binding()` is a short abstraction used to handle one-way binding between state and views respecting the Android lifecycle and main thread requirements
-
-#### Features
-
-Each package contains a README description of its contents, including description of the solution it proposes and the layers required for it
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
