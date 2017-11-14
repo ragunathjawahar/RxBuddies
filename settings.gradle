@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-include ':app', ':libservices', ':liblogic'
+include ':app', ':liblogic'

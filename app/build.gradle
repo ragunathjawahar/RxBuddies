@@ -54,7 +54,6 @@ dependencies {
 
     // Business logic
     compile project(':liblogic')
-    compile project(':libservices')
     compile 'io.reactivex:rxjava:1.2.0'
     compile 'io.reactivex:rxandroid:1.2.1'
 
