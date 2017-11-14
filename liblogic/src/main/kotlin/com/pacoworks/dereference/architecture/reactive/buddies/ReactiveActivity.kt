@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.pacoworks.dereference.architecture.reactive.buddies
 
 import com.jakewharton.rxrelay.BehaviorRelay
@@ -27,84 +26,96 @@ import com.pacoworks.dereference.architecture.reactive.PermissionResult
  * It wraps the lifecycle in a more comprehensible approach for this app.
  */
 class ReactiveActivity {
+  val lifecycleRelay: BehaviorRelay<ActivityLifecycle> = BehaviorRelay.create<ActivityLifecycle>()
+  val activityResultRelay: BehaviorRelay<ActivityResult> = BehaviorRelay.create<ActivityResult>()
+  val permissionResultRelay: BehaviorRelay<PermissionResult> = BehaviorRelay.create<PermissionResult>()
+  val onBackRelay: BehaviorRelay<Unit> = BehaviorRelay.create<Unit>()
 
-    val lifecycleRelay: BehaviorRelay<ActivityLifecycle> = BehaviorRelay.create<ActivityLifecycle>()
+  /**
+   * To be called on the first time an Activity is created
+   */
+  fun onEnter() =
+      call(ActivityLifecycle.ENTER)
 
-    val activityResultRelay: BehaviorRelay<ActivityResult> = BehaviorRelay.create<ActivityResult>()
+  /**
+   * To be called on the lifecycle method of the same name
+   */
+  fun onCreate() =
+      call(ActivityLifecycle.Create)
 
-    val permissionResultRelay: BehaviorRelay<PermissionResult> = BehaviorRelay.create<PermissionResult>()
+  /**
+   * To be called on the lifecycle method of the same name
+   */
+  fun onStart() =
+      call(ActivityLifecycle.START)
 
-    val onBackRelay: BehaviorRelay<Unit> = BehaviorRelay.create<Unit>()
+  /**
+   * To be called on the lifecycle method of the same name
+   */
+  fun onResume() =
+      call(ActivityLifecycle.RESUME)
 
-    private fun call(lifecycle: ActivityLifecycle) = lifecycleRelay.call(lifecycle)
+  /**
+   * To be called on the lifecycle method of the same name
+   */
+  fun onPause() =
+      call(ActivityLifecycle.PAUSE)
 
-    /**
-     * To be called on the first time an Activity is created
-     */
-    fun onEnter() = call(ActivityLifecycle.Enter)
+  /**
+   * To be called on the lifecycle method of the same name
+   */
+  fun onStop() =
+      call(ActivityLifecycle.STOP)
 
-    /**
-     * To be called on the lifecycle method of the same name
-     */
-    fun onCreate() = call(ActivityLifecycle.Create)
+  /**
+   * To be called on the lifecycle method of the same name
+   */
+  fun onDestroy() =
+      call(ActivityLifecycle.DESTROY)
 
-    /**
-     * To be called on the lifecycle method of the same name
-     */
-    fun onStart() = call(ActivityLifecycle.Start)
+  /**
+   * To be called when an Activity is finished by a business request
+   */
+  fun onExit() =
+      call(ActivityLifecycle.EXIT)
 
-    /**
-     * To be called on the lifecycle method of the same name
-     */
-    fun onResume() = call(ActivityLifecycle.Resume)
+  /**
+   * To be called after receiving a result from another Activity
+   */
+  fun onActivityResult(result: ActivityResult) =
+      activityResultRelay.call(result)
 
-    /**
-     * To be called on the lifecycle method of the same name
-     */
-    fun onPause() = call(ActivityLifecycle.Pause)
+  /**
+   * To be called after receiving a result of a permission request
+   */
+  fun onPermissionResult(result: PermissionResult) =
+      permissionResultRelay.call(result)
 
-    /**
-     * To be called on the lifecycle method of the same name
-     */
-    fun onStop() = call(ActivityLifecycle.Stop)
+  /**
+   * To be called when the user presses the back key
+   */
+  fun onBackPressed() =
+      onBackRelay.call(Unit)
 
-    /**
-     * To be called on the lifecycle method of the same name
-     */
-    fun onDestroy() = call(ActivityLifecycle.Destroy)
+  /**
+   * Creates a proxy object [ActivityReactiveBuddy] to access framework events, like lifecycle.
+   *
+   * @return a new [ActivityReactiveBuddy]
+   */
+  fun createBuddy() = object : ActivityReactiveBuddy {
+    override fun lifecycle() =
+        lifecycleRelay.asObservable()
 
-    /**
-     * To be called when an Activity is finished by a business request
-     */
-    fun onExit() = call(ActivityLifecycle.Exit)
+    override fun activityResult() =
+        activityResultRelay.asObservable()
 
-    /**
-     * To be called after receiving a result from another Activity
-     */
-    fun onActivityResult(result: ActivityResult) = activityResultRelay.call(result)
+    override fun permissionResult() =
+        permissionResultRelay.asObservable()
 
-    /**
-     * To be called after receiving a result of a permission request
-     */
-    fun onPermissionResult(result: PermissionResult) = permissionResultRelay.call(result)
+    override fun back() =
+        onBackRelay.asObservable()
+  }
 
-    /**
-     * To be called when the user presses the back key
-     */
-    fun onBackPressed() = onBackRelay.call(Unit)
-
-    /**
-     * Creates a proxy object [ActivityReactiveBuddy] to access framework events, like lifecycle.
-     *
-     * @return a new [ActivityReactiveBuddy]
-     */
-    fun createBuddy() = object : ActivityReactiveBuddy {
-        override fun lifecycle() = lifecycleRelay.asObservable()
-
-        override fun activityResult() = activityResultRelay.asObservable()
-
-        override fun permissionResult() = permissionResultRelay.asObservable()
-
-        override fun back() = onBackRelay.asObservable()
-    }
+  private fun call(lifecycle: ActivityLifecycle) =
+      lifecycleRelay.call(lifecycle)
 }

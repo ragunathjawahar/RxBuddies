@@ -13,19 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.pacoworks.dereference.architecture.reactive.buddies
-
-import com.pacoworks.dereference.architecture.reactive.ControllerLifecycle
-import rx.Observable
+package com.pacoworks.dereference.architecture.reactive
 
 /**
- * Proxy interface to access Android framework responsibilities of a [ReactiveController]
+ * Enum class with all possible Activity lifecycle states
  */
-interface ControllerReactiveBuddy {
-    /**
-     * Non-terminating [Observable] representing the Controller lifecycle
-     */
-    fun lifecycle(): Observable<ControllerLifecycle>
+enum class ActivityLifecycle {
+  ENTER, CREATE, START, RESUME, PAUSE, STOP, DESTROY, EXIT
 }
-
