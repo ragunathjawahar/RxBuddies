@@ -18,15 +18,15 @@ package com.pacoworks.dereference.architecture.reactive.buddies
 import com.pacoworks.dereference.architecture.reactive.ActivityLifecycle
 import com.pacoworks.dereference.architecture.reactive.ActivityResult
 import com.pacoworks.dereference.architecture.reactive.PermissionResult
+import io.reactivex.observers.TestObserver
 import org.junit.Test
-import rx.observers.TestSubscriber
 
 class ReactiveActivityTest {
   @Test
   fun activityBuddy_OnLifecycleEvents_SeeAllEvents() {
     val reactiveActivity = ReactiveActivity()
     val reactiveBuddy = reactiveActivity.createBuddy()
-    val testSubscriber = TestSubscriber.create<ActivityLifecycle>()
+    val testSubscriber = TestObserver<ActivityLifecycle>()
     reactiveBuddy.lifecycle().subscribe(testSubscriber)
     /* Call all lifecycle events */
     reactiveActivity.onEnter()
@@ -41,14 +41,14 @@ class ReactiveActivityTest {
     val values = ActivityLifecycle.values()
     testSubscriber.assertValueCount(values.count())
     testSubscriber.assertValues(*values)
-    testSubscriber.assertNoTerminalEvent()
+    testSubscriber.assertNotTerminated()
   }
 
   @Test
   fun activityBuddy_activityResult_SeeAllEvents() {
     val reactiveActivity = ReactiveActivity()
     val reactiveBuddy = reactiveActivity.createBuddy()
-    val testSubscriber = TestSubscriber.create<ActivityResult>()
+    val testSubscriber = TestObserver<ActivityResult>()
     reactiveBuddy.activityResult().subscribe(testSubscriber)
     /* Call all possible activity results */
     val success = ActivityResult.Success(1)
@@ -62,14 +62,14 @@ class ReactiveActivityTest {
     /* Assert results received */
     testSubscriber.assertValueCount(4)
     testSubscriber.assertValues(success, successWithData, failure, failureWithData)
-    testSubscriber.assertNoTerminalEvent()
+    testSubscriber.assertNotTerminated()
   }
 
   @Test
   fun activityBuddy_permissionResult_SeeAllEvents() {
     val reactiveActivity = ReactiveActivity()
     val reactiveBuddy = reactiveActivity.createBuddy()
-    val testSubscriber = TestSubscriber.create<PermissionResult>()
+    val testSubscriber = TestObserver<PermissionResult>()
     reactiveBuddy.permissionResult().subscribe(testSubscriber)
     /* Call all possible permission results */
     val success = PermissionResult.Success(1, "Hello")
@@ -79,20 +79,20 @@ class ReactiveActivityTest {
     /* Check results have been seen */
     testSubscriber.assertValueCount(2)
     testSubscriber.assertValues(success, failure)
-    testSubscriber.assertNoTerminalEvent()
+    testSubscriber.assertNotTerminated()
   }
 
   @Test
   fun activityBuddy_backPressed_SeeAllEvents() {
     val reactiveActivity = ReactiveActivity()
     val reactiveBuddy = reactiveActivity.createBuddy()
-    val testSubscriber = TestSubscriber.create<Unit>()
+    val testSubscriber = TestObserver<Unit>()
     reactiveBuddy.back().subscribe(testSubscriber)
     /* Press back */
     reactiveActivity.onBackPressed()
     /* Assert back seen */
     testSubscriber.assertValueCount(1)
     testSubscriber.assertValue(Unit)
-    testSubscriber.assertNoTerminalEvent()
+    testSubscriber.assertNotTerminated()
   }
 }

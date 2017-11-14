@@ -18,7 +18,7 @@ package com.pacoworks.dereference.architecture.reactive.buddies
 import com.pacoworks.dereference.architecture.reactive.ActivityLifecycle
 import com.pacoworks.dereference.architecture.reactive.ActivityResult
 import com.pacoworks.dereference.architecture.reactive.PermissionResult
-import rx.Observable
+import io.reactivex.Observable
 
 /**
  * Proxy interface to access Android framework responsibilities of a [ReactiveActivity]

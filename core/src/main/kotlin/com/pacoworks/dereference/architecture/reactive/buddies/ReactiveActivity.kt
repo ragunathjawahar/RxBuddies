@@ -15,10 +15,11 @@
  */
 package com.pacoworks.dereference.architecture.reactive.buddies
 
-import com.jakewharton.rxrelay.BehaviorRelay
+import com.jakewharton.rxrelay2.BehaviorRelay
 import com.pacoworks.dereference.architecture.reactive.ActivityLifecycle
 import com.pacoworks.dereference.architecture.reactive.ActivityResult
 import com.pacoworks.dereference.architecture.reactive.PermissionResult
+import io.reactivex.BackpressureStrategy
 
 /**
  * Delegate class for Android lifecycle responsibilities in an Activity to transform them on reactive streams.
@@ -83,19 +84,19 @@ class ReactiveActivity {
    * To be called after receiving a result from another Activity
    */
   fun onActivityResult(result: ActivityResult) =
-      activityResultRelay.call(result)
+      activityResultRelay.accept(result)
 
   /**
    * To be called after receiving a result of a permission request
    */
   fun onPermissionResult(result: PermissionResult) =
-      permissionResultRelay.call(result)
+      permissionResultRelay.accept(result)
 
   /**
    * To be called when the user presses the back key
    */
   fun onBackPressed() =
-      onBackRelay.call(Unit)
+      onBackRelay.accept(Unit)
 
   /**
    * Creates a proxy object [ActivityReactiveBuddy] to access framework events, like lifecycle.
@@ -104,18 +105,18 @@ class ReactiveActivity {
    */
   fun createBuddy() = object : ActivityReactiveBuddy {
     override fun lifecycle() =
-        lifecycleRelay.asObservable()
+        lifecycleRelay.toFlowable(BackpressureStrategy.LATEST).toObservable()
 
     override fun activityResult() =
-        activityResultRelay.asObservable()
+        activityResultRelay.toFlowable(BackpressureStrategy.LATEST).toObservable()
 
     override fun permissionResult() =
-        permissionResultRelay.asObservable()
+        permissionResultRelay.toFlowable(BackpressureStrategy.LATEST).toObservable()
 
     override fun back() =
-        onBackRelay.asObservable()
+        onBackRelay.toFlowable(BackpressureStrategy.LATEST).toObservable()
   }
 
   private fun call(lifecycle: ActivityLifecycle) =
-      lifecycleRelay.call(lifecycle)
+      lifecycleRelay.accept(lifecycle)
 }
